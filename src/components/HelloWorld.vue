@@ -1,7 +1,9 @@
 <template>
   <div class="hello">
     <h3>Количество котов: {{ catsTotal }}</h3>
-
+    <h3>Поглажено котов: {{ catsLiked }}</h3>
+    <br/>
+    <button @click="likeCat()">Погладь кота, ...</button>
   </div>
 </template>
 
@@ -11,8 +13,13 @@ import {ref} from 'vue'
 export default {
   setup(){
     const catsTotal = ref(14);
+    const catsLiked = ref(0);
 
-    return { catsTotal }
+    function likeCat(){
+      catsLiked.value++
+    }
+
+    return { catsTotal, catsLiked, likeCat }
   }
 };
 </script>
