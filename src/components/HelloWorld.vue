@@ -2,13 +2,14 @@
   <div class="hello">
     <h3>Количество котов: {{ catsTotal }}</h3>
     <h3>Поглажено котов: {{ catsLiked }}</h3>
+    <h3>Осталось погладить: {{ catsRemainded }}</h3>
     <br/>
     <button @click="likeCat()">Погладь кота, ...</button>
   </div>
 </template>
 
 <script>
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 
 export default {
   setup(){
@@ -16,10 +17,16 @@ export default {
     const catsLiked = ref(0);
 
     function likeCat(){
-      catsLiked.value++
+      if (catsLiked.value<catsTotal.value){
+        catsLiked.value++
+      }
     }
 
-    return { catsTotal, catsLiked, likeCat }
+    const catsRemainded = computed(()=>{
+      return catsTotal.value - catsLiked.value
+    })
+
+    return { catsTotal, catsLiked, likeCat, catsRemainded }
   }
 };
 </script>
