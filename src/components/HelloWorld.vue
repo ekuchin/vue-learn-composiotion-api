@@ -14,7 +14,11 @@ import {reactive, computed, toRefs } from 'vue'
 export default {
   setup(){
     
-    const cats = reactive({
+    return {...useCats()}
+  }
+}
+function useCats(){
+      const cats = reactive({
       total:14,
       liked:0,
       remainded: computed(()=>{
@@ -29,8 +33,8 @@ export default {
     }
 
     return { ...toRefs(cats), likeCat }
-  }
-};
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
