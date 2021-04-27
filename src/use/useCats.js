@@ -4,7 +4,7 @@ export default function useCats(){
     const cats = reactive({
     total:14,
     liked:0,
-    remainded: computed(()=>{
+    remained: computed(()=>{
       return cats.total - cats.liked
     })
   })

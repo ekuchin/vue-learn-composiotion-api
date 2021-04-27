@@ -2,21 +2,20 @@
   <div class="hello">
     <h3>Количество котов: {{ total }}</h3>
     <h3>Поглажено котов: {{ liked }}</h3>
-    <h3>Осталось погладить: {{ remainded }}</h3>
+    <h3>Осталось погладить: {{ remained }}</h3>
     <br/>
     <button @click="likeCat()">Погладь кота, ...</button>
   </div>
 </template>
 
 <script>
-//import {reactive, computed, toRefs } from 'vue'
 import useCats from '@/use/useCats'
 
 export default {
   setup(){    
+    const {total, liked, remained, likeCat} = useCats()
 
-//const {total, liked, remained, likeCat} = {...useCats()}
-return {...useCats()}
+    return {total, liked, remained, likeCat}
   }
 }
 
