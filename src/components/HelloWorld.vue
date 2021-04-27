@@ -1,32 +1,34 @@
 <template>
   <div class="hello">
-    <h3>Количество котов: {{ catsTotal }}</h3>
-    <h3>Поглажено котов: {{ catsLiked }}</h3>
-    <h3>Осталось погладить: {{ catsRemainded }}</h3>
+    <h3>Количество котов: {{ total }}</h3>
+    <h3>Поглажено котов: {{ liked }}</h3>
+    <h3>Осталось погладить: {{ remainded }}</h3>
     <br/>
     <button @click="likeCat()">Погладь кота, ...</button>
   </div>
 </template>
 
 <script>
-import {ref, computed} from 'vue'
+import {reactive, computed, toRefs } from 'vue'
 
 export default {
   setup(){
-    const catsTotal = ref(14);
-    const catsLiked = ref(0);
+    
+    const cats = reactive({
+      total:14,
+      liked:0,
+      remainded: computed(()=>{
+        return cats.total - cats.liked
+      })
+    })
 
     function likeCat(){
-      if (catsLiked.value<catsTotal.value){
-        catsLiked.value++
+      if (cats.liked<cats.total){
+        cats.liked++
       }
     }
 
-    const catsRemainded = computed(()=>{
-      return catsTotal.value - catsLiked.value
-    })
-
-    return { catsTotal, catsLiked, likeCat, catsRemainded }
+    return { ...toRefs(cats), likeCat }
   }
 };
 </script>
