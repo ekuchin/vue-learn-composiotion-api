@@ -5,17 +5,44 @@
     <h3>Осталось погладить: {{ remained }}</h3>
     <br/>
     <button @click="likeCat()">Погладь кота, ...</button>
+  <br/>
+    
+    Поиск: <input v-model="searchInput"/>
+    <button @click="callAPI('a')">Запрос к api</button>
+    {{results}}
   </div>
 </template>
 
 <script>
+import {ref, watchEffect, watch} from 'vue'
 import useCats from '@/use/useCats'
+//import getValueFromAPI from "@/api/cats"
 
 export default {
   setup(){    
     const {total, liked, remained, likeCat} = useCats()
 
-    return {total, liked, remained, likeCat}
+    const searchInput = ref("");
+    const results = ref(0)
+
+    const callAPI = (val) =>{
+      setTimeout(() =>{
+        const i=Math.random()
+        console.log(i)
+        results.value = val.length+Math.round((i*10))
+      }, 500)
+    }
+
+    watchEffect(() => {
+      results.value = callAPI(searchInput.value);
+    });
+
+    watch(searchInput, (newValue, oldValue)=>{
+        console.log("watch", newValue, oldValue)
+
+    })
+
+    return {total, liked, remained, likeCat, callAPI, results, searchInput}
   }
 }
 
